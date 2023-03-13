@@ -4,6 +4,20 @@
 .wrapper{
   max-width: 1180px;
 }
+/* home scroll */
+.homeScroll::-webkit-scrollbar-thumb {
+  background: rgb(69, 10, 132);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.homeScroll::-webkit-scrollbar {
+  background-color: rgb(36, 36, 34);
+  width: 5px;
+ }
+/* home scroll */
 /* Home Banner Customize Start */
 
 .homeBanner .swiper-button-prev,
@@ -46,4 +60,49 @@
   width: 13px;
   height: 13px;
 }
-/* Home Banner Customize End*/
+/*Foryou Banner Customize End*/
+
+
+.forYouBanner .swiper-button-prev,
+.forYouBanner .swiper-button-next{
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    top: 130px;
+    background-color: rgb(74, 73, 75);
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    transition: 300ms all;
+    -webkit-transition: 300ms all;
+    -moz-transition: 300ms all;
+    -ms-transition: 300ms all;
+    -o-transition: 300ms all;
+}
+.forYouBanner:hover .swiper-button-prev,
+.forYouBanner:hover .swiper-button-next{
+  opacity: 0.8;
+}
+.forYouBanner .swiper-button-prev::after,
+.forYouBanner .swiper-button-next::after{
+    color: white;  
+    font-size: 20px;
+    font-weight: 700;
+}
+.forYouBanner .swiper-pagination-bullet.swiper-pagination-bullet-active{
+     opacity: 0.7;
+    background-color: white;
+    color: white;
+    border: 1px solid black ;
+    
+}
+.forYouBanner .swiper-pagination-bullet{
+  width: 13px;
+  height: 13px;
+}
+/* For you Banner Customize End*/

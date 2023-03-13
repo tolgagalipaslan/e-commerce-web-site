@@ -10,17 +10,24 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { AliExpressProducts } from "../../../helpers/Api";
 import ProductCard from "../../../components/ProductCard";
 import Skeleton from "../../../components/Skeleton";
-const ForYou = () => {
+const Discounted = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     AliExpressProducts().then((res) => setData(res));
   }, []);
   return (
-    <div>
-      <div className="wrapper mx-auto">
-        <h1 className="text-white  font-semibold text-2xl border-b py-3 my-5 ">
-          For You
+    <div className=" bg-white relative">
+      <div className="wrapper mx-auto py-2 ">
+        <h1 className="text-black   font-semibold text-2xl border-b py-3 my-5 ">
+          Discounted Products
         </h1>{" "}
+        <div className="absolute md:top-[-60px] top-[-10px]  md:right-[80px] right-[0px]">
+          <img
+            src="./assets/discount.png"
+            alt=""
+            className=" md:h-40 h-24 rotate-[-50deg]"
+          />
+        </div>
         <Swiper
           spaceBetween={30}
           autoplay={{
@@ -49,13 +56,13 @@ const ForYou = () => {
           }}
           loop
           navigation={true}
-          modules={[Autoplay, Pagination, Navigation]}
-          className="h-[390px] forYouBanner rounded-md"
+          modules={[Autoplay, Navigation]}
+          className="h-[350px] forYouBanner rounded-md  items-center"
         >
           {data.length !== 0
             ? data?.map((product, i) => (
                 <SwiperSlide key={i} className="h-full ">
-                  <ProductCard product={product} color="white" />
+                  <ProductCard product={product} color="black" />
                 </SwiperSlide>
               ))
             : [...Array(20).keys()].map((skeleton, i) => (
@@ -69,4 +76,4 @@ const ForYou = () => {
   );
 };
 
-export default ForYou;
+export default Discounted;

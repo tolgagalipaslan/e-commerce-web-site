@@ -10,7 +10,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import { AliExpressProducts } from "../../../helpers/Api";
 import ProductCard from "../../../components/ProductCard";
 import Skeleton from "../../../components/Skeleton";
-const ForYou = () => {
+const TopRated = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     AliExpressProducts().then((res) => setData(res));
@@ -19,7 +19,7 @@ const ForYou = () => {
     <div>
       <div className="wrapper mx-auto">
         <h1 className="text-white  font-semibold text-2xl border-b py-3 my-5 ">
-          For You
+          Top Rated Products
         </h1>{" "}
         <Swiper
           spaceBetween={30}
@@ -69,4 +69,4 @@ const ForYou = () => {
   );
 };
 
-export default ForYou;
+export default TopRated;

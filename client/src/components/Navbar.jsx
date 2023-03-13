@@ -3,13 +3,18 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { RxDotFilled } from "react-icons/rx";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div className="min-h-fit h-[127px] w-full bg-[#5b11a9]  text-mainNavbar flex flex-col">
-      <div className="w-full h-[81px] bg-[#2d0c51] flex items-center ">
-        <div className="w-[1180px]  mx-auto flex  justify-between">
-          <div className="relative w-7/12 flex  items-center justify-between">
-            <div className=" flex items-center bg-[#5b11a9]  h-[48px] py-2 px-4 rounded-l-full  gap-2">
+      <div className="w-full h-[81px] bg-[#2d0c51] flex items-center fixed z-50">
+        <div className="w-[1180px]  mx-auto flex  justify-between ">
+          {/* md flex */}
+          <div className="relative w-7/12 md:flex hidden items-center justify-between">
+            <Link
+              to="/"
+              className=" flex items-center bg-[#5b11a9]  h-[48px] py-2 px-4 rounded-l-full  gap-2"
+            >
               <img
                 src="assets/logo.png"
                 alt=""
@@ -18,8 +23,8 @@ const Navbar = () => {
               <h1 className="border-l px-2 text-xl font-semibold text-white opacity-80">
                 Plago
               </h1>
-            </div>
-            <form className="bg-[#fdea3e]   items-center overflow-hidden flex rounded-r-full w-full  text-black">
+            </Link>
+            <form className="bg-gray-100  items-center overflow-hidden flex rounded-r-full w-full  text-black">
               <img src="" alt="" />
               <input
                 type="text"
@@ -33,7 +38,32 @@ const Navbar = () => {
               </div>
             </form>
           </div>
-          <div className="w-3/12 text-white flex gap-2 items-center">
+          {/* md hidden */}
+          <div className="md:hidden flex items-center justify-around w-3/6">
+            <Link
+              to="/"
+              className=" flex items-center bg-[#5b11a9] ml-4 h-[58px]  w-[58px] rounded-full  gap-2"
+            >
+              <img
+                src="assets/logo.png"
+                alt=""
+                className=" rounded-full  w-full h-full"
+              />
+            </Link>
+            <form className="bg-gray-100  items-center overflow-hidden px-2 flex rounded-full  h-[40px] text-black">
+              <input
+                type="text"
+                className="bg-transparent outline-none py-2  w-[120px] h-[18px] font-semibold"
+                placeholder="Search "
+              />
+              <div className="  py-2 ">
+                <button className="  bg-transparent  outline-none   border-l-2  border-black  text-2xl">
+                  <AiOutlineSearch />
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className=" text-white flex gap-2 items-center">
             <BsCart4 className="border-r p-1 text-4xl cursor-pointer" />
             <div className="flex  gap-2 items-center">
               <CiUser className="text-4xl font-semibold p-1 cursor-pointer" />
