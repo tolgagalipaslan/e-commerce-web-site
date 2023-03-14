@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { AliExpressProducts } from "../../helpers/Api";
+import React from "react";
 
 import Banner from "./components/Banner";
 import Discounted from "./components/Discounted";

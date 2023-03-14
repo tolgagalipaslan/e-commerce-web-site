@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import { CiUser } from "react-icons/ci";
 import { RxDotFilled } from "react-icons/rx";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const Navbar = () => {
+  const location = useLocation();
+  const unValidPaths = ["/register", "/login"];
   return (
-    <div className="min-h-fit h-[127px] w-full bg-[#5b11a9]  text-mainNavbar flex flex-col">
+    <div
+      className={`${
+        unValidPaths.includes(location.pathname) ? "hidden" : "flex"
+      } min-h-fit h-[127px] w-full bg-[#5b11a9]  text-mainNavbar  flex-col`}
+    >
       <div className="w-full h-[81px] bg-[#2d0c51] flex items-center fixed z-50">
         <div className="w-[1180px]  mx-auto flex  justify-between ">
           {/* md flex */}
@@ -70,9 +76,13 @@ const Navbar = () => {
               <div className="flex flex-col ">
                 <h1 className="text-sm opacity-80">My Account</h1>
                 <div className="flex gap-2 items-center">
-                  <h1 className="underline cursor-pointer">Sign In</h1>
+                  <Link to="/register" className="underline cursor-pointer">
+                    Sign In
+                  </Link>
                   <RxDotFilled />
-                  <h1 className="underline cursor-pointer">Log In</h1>
+                  <Link to="/login" className="underline cursor-pointer">
+                    Log In
+                  </Link>
                 </div>
               </div>
             </div>

@@ -9,7 +9,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-
       <Routes>{routeComponents}</Routes>
     </BrowserRouter>
   );
