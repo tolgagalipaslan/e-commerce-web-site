@@ -1,8 +1,15 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import FacebookLogin from "react-facebook-login";
+import { FcGoogle } from "react-icons/fc";
 
 const SignUpForm = () => {
+  const responseFacebook = (response) => {
+    console.log(response);
+  };
+  // FORMIK
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -26,6 +33,9 @@ const SignUpForm = () => {
     }),
     onSubmit: (values) => {},
   });
+  const login = useGoogleLogin({
+    onSuccess: (tokenResponse) => console.log(tokenResponse),
+  });
   return (
     <div className="w-full  h-screen flex  flex-col justify-center items-center bg-[#1a1a1a]">
       <img src="./assets/logo.png" alt="" className="h-16 rounded-lg" />
@@ -48,7 +58,6 @@ const SignUpForm = () => {
         {formik.touched.firstName && formik.errors.firstName ? (
           <div className="text-red-400">{formik.errors.firstName}</div>
         ) : null}
-
         <label htmlFor="lastName" className="font-semibold">
           Last Name
         </label>
@@ -64,7 +73,6 @@ const SignUpForm = () => {
         {formik.touched.lastName && formik.errors.lastName ? (
           <div className="text-red-400">{formik.errors.lastName}</div>
         ) : null}
-
         <label htmlFor="email" className="font-semibold">
           Email Address
         </label>
@@ -80,7 +88,6 @@ const SignUpForm = () => {
         {formik.touched.email && formik.errors.email ? (
           <div className="text-red-400">{formik.errors.email}</div>
         ) : null}
-
         <label htmlFor="password" className="font-semibold">
           Password
         </label>
@@ -96,8 +103,35 @@ const SignUpForm = () => {
         {formik.touched.password && formik.errors.password ? (
           <div className="text-red-400">{formik.errors.password}</div>
         ) : null}
-
-        <button type="submit" className="p-3 bg-fuchsia-900 rounded-md">
+        <div className="flex items-center gap-2 ">
+          <div className="h-[1px] w-full bg-white"></div>
+          <div className="text-md font-semibold text-gray-400">OR</div>
+          <div className="h-[1px] w-full bg-white"></div>
+        </div>
+        {/* AUTH */}
+        <div className="flex  justify-around gap-2">
+          <div className="w-5/12 ">
+            <button
+              onClick={login}
+              className="flex gap-2 bg-gray-100 text-black font-semibold  p-3 px-5 rounded-md border border-black hover:text-orange-400 items-center hover:bg-stone-100 duration-300 w-full justify-center"
+            >
+              <FcGoogle className="text-3xl" /> Sing In
+            </button>
+          </div>
+          <div className="h-14 border border-black overflow-hidden rounded-md flex items-center w-5/12  relative ">
+            <FacebookLogin
+              appId={import.meta.env.VITE_FACE_APP_ID}
+              autoLoad={true}
+              width="300"
+              fields="name,email,picture"
+              callback={responseFacebook}
+              textButton="Sing In with Facebook"
+            />
+            <div className="absolute w-full h-full bg-black"></div>
+          </div>
+        </div>
+        {/* AUTH */}
+        <button type="submit" className="p-3 mt-4 bg-fuchsia-900 rounded-md">
           Submit
         </button>
       </form>
