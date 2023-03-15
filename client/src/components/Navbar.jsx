@@ -1,12 +1,28 @@
 import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsCart4 } from "react-icons/bs";
+import { BsCart4, BsFillTriangleFill, BsPerson } from "react-icons/bs";
+import { BiLogIn } from "react-icons/bi";
 import { CiUser } from "react-icons/ci";
 import { RxDotFilled } from "react-icons/rx";
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { logout } from "../store/auth";
 const Navbar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   const unValidPaths = ["/register", "/login"];
+
+  useEffect(() => {
+    const userUnValidPaths = ["/register", "/login"];
+
+    if (user.userName) {
+      if (userUnValidPaths.includes(location.pathname)) {
+        navigate("/");
+      }
+    }
+  }, [location.pathname, navigate, user]);
   return (
     <div
       className={`${
@@ -74,16 +90,45 @@ const Navbar = () => {
             <div className="flex  gap-2 items-center">
               <CiUser className="text-4xl font-semibold p-1 cursor-pointer" />
               <div className="flex flex-col ">
-                <h1 className="text-sm opacity-80">My Account</h1>
-                <div className="flex gap-2 items-center">
-                  <Link to="/register" className="underline cursor-pointer">
-                    Sign In
-                  </Link>
-                  <RxDotFilled />
-                  <Link to="/login" className="underline cursor-pointer">
-                    Log In
-                  </Link>
-                </div>
+                {user.userName ? (
+                  <div className="flex gap-2 items-center justify-center">
+                    <div>
+                      <h1 className="text-sm opacity-80">My Account</h1>
+                      <h1 className="font-semibold underline hover:no-underline duration-150 capitalize cursor-pointer">
+                        {user.userName}
+                      </h1>
+                    </div>
+
+                    <div>
+                      {" "}
+                      <button
+                        className="  p-2 flex items-center gap-2  rounded-b  hover:scale-90 duration-500"
+                        onClick={() => dispatch(logout())}
+                      >
+                        <BiLogIn className="text-5xl" />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-2 items-center">
+                    <h1 className="text-sm opacity-80">My Account</h1>
+                    <div className="flex items-center">
+                      <Link
+                        to="/register"
+                        className="underline cursor-pointer hover:no-underline duration-150"
+                      >
+                        Sign In
+                      </Link>
+                      <RxDotFilled />
+                      <Link
+                        to="/login"
+                        className="underline cursor-pointer hover:no-underline duration-150"
+                      >
+                        Log In
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

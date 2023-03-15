@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { googleAuth, login } from "../../../store/auth";
+import { client } from "../../../utils/client";
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -22,11 +23,14 @@ const Login = () => {
         .min(8, "Minimun be 8 characters")
         .required("Please do not leave any spaces in the form."),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const query = `*[_type == "user" && email == "${values.email}"][0]`;
+      const res = await client.fetch(query);
       dispatch(
         login({
           email: values.email,
           password: values.password,
+          res: res,
         })
       );
     },
