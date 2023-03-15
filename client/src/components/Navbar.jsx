@@ -30,7 +30,7 @@ const Navbar = () => {
                 Plago
               </h1>
             </Link>
-            <form className="bg-gray-100  items-center overflow-hidden flex rounded-r-full w-full  text-black">
+            <form className="bg-[#f9e400] items-center overflow-hidden flex rounded-r-full w-full  text-black">
               <img src="" alt="" />
               <input
                 type="text"

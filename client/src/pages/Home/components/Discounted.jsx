@@ -16,9 +16,9 @@ const Discounted = () => {
     AliExpressProducts().then((res) => setData(res));
   }, []);
   return (
-    <div className=" bg-white relative">
+    <div className=" bg-[#83e6eb] relative">
       <div className="wrapper mx-auto py-2 ">
-        <h1 className="text-black   font-semibold text-2xl border-b py-3 my-5 ">
+        <h1 className="text-black   font-semibold text-2xl border-b border-black py-3 my-5 ">
           Discounted Products
         </h1>{" "}
         <div className="absolute md:top-[-60px] top-[-10px]  md:right-[80px] right-[0px]">
