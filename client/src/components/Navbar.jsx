@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCart4, BsFillTriangleFill, BsPerson } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
+import { FaClipboardList } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
 import { RxDotFilled } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { logout } from "../store/auth";
+import auth, { logout } from "../store/auth";
 const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const Navbar = () => {
               className=" flex items-center bg-[#5b11a9]  h-[48px] py-2 px-4 rounded-l-full  gap-2"
             >
               <img
-                src="assets/logo.png"
+                src="/assets/logo.png"
                 alt=""
                 className=" rounded  w-full h-full"
               />
@@ -92,11 +93,31 @@ const Navbar = () => {
               <div className="flex flex-col ">
                 {user.userName ? (
                   <div className="flex gap-2 items-center justify-center">
-                    <div>
+                    <div className=" group relative">
                       <h1 className="text-sm opacity-80">My Account</h1>
                       <h1 className="font-semibold underline hover:no-underline duration-150 capitalize cursor-pointer">
                         {user.userName}
                       </h1>
+                      <div
+                        className={` group-hover:flex  group-hover:opacity-100  duration-500 hidden absolute -bottom-[90px] right-0 z-30   bg-[#4df85bf5] flex flex-col  w-[140px]  opacity-0 rounded `}
+                      >
+                        {/* OPTIONS */}
+                        <div className=" flex absolute  bottom-full  w-full justify-end pr-3 text-[#4df85bf5] right-0 pt-5">
+                          <BsFillTriangleFill />
+                        </div>
+                        <Link
+                          to={`/profile`}
+                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#47af50f5] rounded-t "
+                        >
+                          <BsPerson className="text-lg" /> Your Account
+                        </Link>
+                        <Link
+                          to={`/myproducts/${user.userId}`}
+                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#47af50f5] rounded-t  rounded"
+                        >
+                          <FaClipboardList className="text-lg" /> My Products
+                        </Link>
+                      </div>
                     </div>
 
                     <div>

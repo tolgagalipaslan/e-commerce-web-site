@@ -25,6 +25,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "react-stars": "^2.2.5",
+    "react-toastify": "^9.1.1",
     "swiper": "^9.1.0",
     "uid": "^2.0.1",
     "yup": "^1.0.2"

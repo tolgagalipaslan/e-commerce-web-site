@@ -31,7 +31,8 @@ export default {
       {
         name: 'picture',
         title: 'Picture',
-        type: 'string',
+        type: 'array',
+        of:[{type:'string'}]
       },
       {
         name: 'brand',
@@ -46,13 +47,8 @@ export default {
       {
         name: 'sellingBy',
         title: 'Selling By',
-        type: 'array',
-        of: [
-          {
-            type: 'reference',
-            to: [{type: 'user'}],
-          },
-        ],
+        type: 'sellingBy',
+       
       },
       {
         name: 'comments',
