@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import ReactStars from "react-stars";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { evaluationCalculate } from "../helpers/Api";
 import { Link } from "react-router-dom";
-const ProductCard = ({ product, color }) => {
+import { evaluationCalculate } from "../../../helpers/Api";
+const MyProductCard = ({ product }) => {
   const [evaluation, setEvaluation] = useState();
   useEffect(() => {
     evaluationCalculate(product._id).then((res) => setEvaluation(res));
   }, [product._id]);
   return (
     <div
-      className={`flex flex-col w-full h-5/6 ${
-        color === "white" ? "bg-[white] text-black" : "bg-[#1a1a1a] text-white"
-      } p-2 rounded-md hover:shadow-purple-900 hover:shadow-md hover:scale-95 duration-300 border`}
+      className={`flex flex-col w-full  text-black  min-h-[350px] p-2 rounded-md hover:shadow-purple-900 hover:shadow-md hover:scale-95 duration-300 border`}
     >
       {/* IMAGE */}
       <Link
@@ -55,4 +53,4 @@ const ProductCard = ({ product, color }) => {
   );
 };
 
-export default ProductCard;
+export default MyProductCard;

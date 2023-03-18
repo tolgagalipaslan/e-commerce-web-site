@@ -7,13 +7,13 @@ import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
-import { AliExpressProducts } from "../../../helpers/Api";
+import { AliExpressProducts, getProducts } from "../../../helpers/Api";
 import ProductCard from "../../../components/ProductCard";
 import Skeleton from "../../../components/Skeleton";
 const Discounted = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    AliExpressProducts().then((res) => setData(res));
+    getProducts().then((res) => setData(res));
   }, []);
   return (
     <div className=" bg-[#83e6eb] relative">
@@ -65,7 +65,7 @@ const Discounted = () => {
                   <ProductCard product={product} color="black" />
                 </SwiperSlide>
               ))
-            : [...Array(20).keys()].map((skeleton, i) => (
+            : [...Array(5).keys()].map((skeleton, i) => (
                 <SwiperSlide key={i} className="h-full ">
                   <Skeleton type="swiperProductCard" />
                 </SwiperSlide>
