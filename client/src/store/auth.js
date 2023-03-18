@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { client } from '../utils/client'
-import jwt_decode from "jwt-decode"
-import {uid} from "uid"
+import { createSlice } from "@reduxjs/toolkit";
+import { client } from "../utils/client";
+import jwt_decode from "jwt-decode";
+import { uid } from "uid";
 
 const initialUser =
   JSON.parse(localStorage.getItem("user")) === null
@@ -48,12 +48,10 @@ export const authSlice = createSlice({
         localStorage.setItem("user", JSON.stringify(newUser));
         state.user = newUser;
       } else {
-        console.log("olmadi");
       }
     },
     register: (state, action) => {
       if (action.payload.res) {
-        console.log("var yapaman");
       } else {
         const userId = uid();
         client.createIfNotExists({
@@ -76,14 +74,14 @@ export const authSlice = createSlice({
         state.user = newUser;
       }
     },
-    logout:(state)=>{
-      state.user={}
-      localStorage.removeItem('user')
-    }
+    logout: (state) => {
+      state.user = {};
+      localStorage.removeItem("user");
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { googleAuth, login, register ,logout} = authSlice.actions;
+export const { googleAuth, login, register, logout } = authSlice.actions;
 
 export default authSlice.reducer;

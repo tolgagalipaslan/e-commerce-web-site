@@ -37,12 +37,10 @@ const CreateProducts = () => {
             setLooding(false);
           });
       } else {
-        console.log("Thats a lot of picture !!");
         falseFileType("Thats a lot of picture !!");
         setLooding(false);
       }
     } else {
-      console.log("wrong type");
       falseFileType("Wrong type");
       setLooding(false);
     }

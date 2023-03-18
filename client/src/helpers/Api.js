@@ -97,7 +97,6 @@ export const getSingleUser = async (userId) => {
 export const evaluationCalculate = async (productId) => {
   const query = `*[_type == "product" && _id == "${productId}"][0]`;
   const res = await client.fetch(query);
-  console.log(res);
   if (res.comments) {
     let num = 0;
 
@@ -108,5 +107,67 @@ export const evaluationCalculate = async (productId) => {
     return calcEvaluation;
   } else {
     return 0;
+  }
+};
+//Get My Producst Rate
+export const evaluationAllCalculate = async (productId) => {
+  const query = `*[_type == "product" && sellingBy._ref == "${productId}"]`;
+  const res = await client.fetch(query);
+  let num = 0;
+
+  const array = [];
+  for (let i = 0; i < res.length; i++) {
+    for (let p = 0; p < res[i].comments?.length; p++) {
+      if (res[i].comments[p]?.star === 0) {
+      } else {
+        num += parseInt(res[i].comments[p].star);
+      }
+    }
+    const newObject = { num, res: res[i] };
+    array.push(newObject);
+    num = 0;
+  }
+  array.sort((a, b) => b.num - a.num);
+  const response = [];
+  for (let i = 0; i < array.length; i++) {
+    response.push(array[i].res);
+  }
+
+  return response;
+};
+
+//Get My Products sorted by price lowest
+
+export const getMyProductsSortedByPriceLowest = async (userId) => {
+  try {
+    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(price asc)`;
+    const res = await client.fetch(query);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Get My Products sorted by price highest
+
+export const getMyProductsSortedByHighest = async (userId) => {
+  try {
+    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(price desc)`;
+    const res = await client.fetch(query);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Get My Products sorted by price rated
+
+export const getMyProductsSortedByRate = async (userId) => {
+  try {
+    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(comments.star asc)`;
+    const res = await client.fetch(query);
+    return res;
+  } catch (error) {
+    console.log(error);
   }
 };
