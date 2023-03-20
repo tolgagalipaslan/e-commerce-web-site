@@ -98,17 +98,14 @@ export const getSingleUser = async (userId) => {
 export const evaluationCalculate = async (productId) => {
   const query = `*[_type == "product" && _id == "${productId}"][0]`;
   const res = await client.fetch(query);
-  if (res.comments) {
-    let num = 0;
 
-    for (let i = 0; i < res.comments.length; i++) {
-      num += parseInt(res.comments[i].star);
-    }
-    const calcEvaluation = num / res.comments.length;
-    return calcEvaluation;
-  } else {
-    return 0;
+  let num = 0;
+
+  for (let i = 0; i < res.comments?.length; i++) {
+    num += parseInt(res.comments[i].star);
   }
+  const calcEvaluation = num / res.comments.length;
+  return calcEvaluation;
 };
 //Get My Producst Rate
 export const evaluationAllCalculate = async (productId) => {

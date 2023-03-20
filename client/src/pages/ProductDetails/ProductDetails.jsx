@@ -19,6 +19,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [productUser, setProductUser] = useState({});
   const [evaluation, setEvaluation] = useState();
+  const [updater, setUpdater] = useState(0);
   const [mainPic, setMainPic] = useState("");
   const [maxAmount, setMaxAmount] = useState(1);
   const [amount, setAmount] = useState(1);
@@ -33,7 +34,7 @@ const ProductDetails = () => {
         setMaxAmount(res);
       });
     });
-  }, [params.id]);
+  }, [maxAmount, params.id, user.userId, updater]);
   return (
     <div className=" w-full h-screen pt-5">
       <ToastContainer
@@ -144,11 +145,10 @@ const ProductDetails = () => {
             <div className="flex justify-between items-center">
               <button
                 className="w-5/6 bg-emerald-500 p-2 rounded-md text-white font-semibold flex justify-center items-center hover:scale-105 duration-500"
-                onClick={() =>
-                  addBasket(user.userId, product._id, amount).then(
-                    navigate("/")
-                  )
-                }
+                onClick={async () => {
+                  await addBasket(user.userId, product._id, amount);
+                  setUpdater(updater + 1);
+                }}
               >
                 <AiOutlinePlus className="font-semibold" /> Add to Cart
               </button>

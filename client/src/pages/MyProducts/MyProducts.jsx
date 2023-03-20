@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import CounterInput from "react-counter-input";
 import { Link, useParams } from "react-router-dom";
 import {
   evaluationAllCalculate,

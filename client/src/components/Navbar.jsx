@@ -13,6 +13,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const basket = useSelector((state) => state.basket.basket);
   const unValidPaths = ["/register", "/login"];
 
   useEffect(() => {
@@ -86,20 +87,90 @@ const Navbar = () => {
               </div>
             </form>
           </div>
-          <div className=" text-white flex gap-2 items-center">
-            <BsCart4 className="border-r p-1 text-4xl cursor-pointer" />
+          <div className=" text-white flex gap-2 items-center relative">
+            <div className=" group/basket relative">
+              <button className="relative   ">
+                <BsCart4 className=" p-1  text-4xl cursor-pointer" />
+                <div className="flex items-center justify-center text-xs bg-red-700 font-semibold text-white rounded-full absolute -top-[2px] -right-[2px] w-[18px] h-[18px]">
+                  {basket?.length}
+                </div>
+              </button>
+              <div
+                className={` group-hover/basket:flex  group-hover/basket:opacity-100  duration-500 hidden absolute top-full right-0 z-30   bg-white shadow-lg border  flex-col  w-[350px] max-h-[350px] opacity-0 rounded  `}
+              >
+                {/* OPTIONS */}
+                <div className=" flex absolute  bottom-full  w-full justify-end pr-3 right-0 pt-5">
+                  <BsFillTriangleFill />
+                </div>
+                <h1 className="text-black ml-5 mt-1 text-lg font-semibold border-b">
+                  My Cart({basket.length} product)
+                </h1>
+                <div className="w-full flex-col flex items-start max-h-[300px] overflow-y-auto basketScroll">
+                  {basket?.map((basket, i) => (
+                    <div key={i} className="border-b   p-2 w-full  ">
+                      <Link to="/" className="flex items-center gap-2 p-1">
+                        <div className="h-24 w-24 rounded-md overflow-hidden  flex items-center ">
+                          <img
+                            src={`${basket.product.picture[0]}`}
+                            alt=""
+                            className="object-contain rounded-md"
+                          />
+                        </div>
+                        <div className="flex flex-col text-black w-4/6">
+                          <h1 className="line-clamp-2">
+                            <span className="font-semibold text-md">
+                              {basket.product.caption}
+                            </span>{" "}
+                            <span className="text-gray-600 ">
+                              {basket.product.description}
+                            </span>
+                          </h1>
+                          <div className="flex text-sm gap-2 opacity-75">
+                            <h1 className="text-gray-500 ">
+                              Brand:{" "}
+                              <span className="italic text-red-500">
+                                {basket.product.brand}
+                              </span>
+                            </h1>
+                            <h1 className="text-gray-500 ">
+                              Piece:{" "}
+                              <span className=" text-red-500 ">
+                                {basket.amount}
+                              </span>
+                            </h1>
+                          </div>
+                          <div>
+                            <h1 className="text-lg font-light text-orange-500">
+                              {basket.product.price}$
+                            </h1>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-white p-2 px-10 bg-white w-full rounded-b-md shadow-md flex items-center justify-center">
+                  <Link
+                    to="/basket"
+                    className="p-2  bg-emerald-500 w-full rounded-md font-semibold "
+                  >
+                    Go To Basket
+                  </Link>
+                </div>
+              </div>
+            </div>
             <div className="flex  gap-2 items-center">
-              <CiUser className="text-4xl font-semibold p-1 cursor-pointer" />
+              <CiUser className="text-4xl font-semibold p-1 border-l  cursor-pointer" />
               <div className="flex flex-col ">
                 {user.userName ? (
                   <div className="flex gap-2 items-center justify-center">
-                    <div className=" group relative">
+                    <div className=" group/user relative">
                       <h1 className="text-sm opacity-80">My Account</h1>
                       <h1 className="font-semibold underline hover:no-underline duration-150 capitalize cursor-pointer">
                         {user.userName}
                       </h1>
                       <div
-                        className={` group-hover:flex  group-hover:opacity-100  duration-500 hidden absolute -bottom-[90px] right-0 z-30   bg-[#4df85bf5] flex flex-col  w-[140px]  opacity-0 rounded `}
+                        className={` group-hover/user:flex  group-hover/user:opacity-100  duration-500 hidden absolute -bottom-[90px] right-0 z-30   bg-[#4df85bf5] flex flex-col  w-[140px]  opacity-0 rounded `}
                       >
                         {/* OPTIONS */}
                         <div className=" flex absolute  bottom-full  w-full justify-end pr-3 text-[#4df85bf5] right-0 pt-5">

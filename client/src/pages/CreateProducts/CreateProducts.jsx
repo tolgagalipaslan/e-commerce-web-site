@@ -115,7 +115,7 @@ const CreateProducts = () => {
   });
   const falseFileType = (message) => toast.error(message);
   return (
-    <div className="bg-[#1a1a1a] w-full h-screen pt-5">
+    <div className=" w-full h-screen pt-5 ">
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -131,12 +131,12 @@ const CreateProducts = () => {
       {/* UPLOAD PHOTO */}
       <div className="w-[1380px]  flex mx-auto">
         <div className="w-2/6 h-[600px]  rounded-md mx-auto flex flex-col justify-around p-1">
-          <div className="w-full h-4/6 bg-gray-500 rounded-md">
+          <div className="w-full h-4/6  rounded-md bg-black ">
             {mainPic === "" ? (
               <img
                 src="/assets/placeholder.png"
                 alt=""
-                className="h-full w-full rounded-md  opacity-90 "
+                className="h-full w-full rounded-md opacity-80 "
               />
             ) : (
               <img src={mainPic} alt="" className="h-full w-full rounded-md " />
@@ -173,7 +173,7 @@ const CreateProducts = () => {
         {/* FORMIK */}
         <div className="w-3/6 h-[600px]  mx-auto items-center justify-center rounded-md">
           <form
-            className="grid grid-cols-2 gap-2 h-full p-2 shadow-md bg-lightGray  rounded-md  w-full bg-[#5b11a9]"
+            className="grid grid-cols-2 gap-2 h-full p-2 shadow-md bg-lightGray  rounded-md  w-full  border border-gray-400 "
             onSubmit={formik.handleSubmit}
           >
             <div className="flex flex-col gap-2">
@@ -193,7 +193,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border border-black  rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.caption && formik.errors.caption ? (
-                <div className="text-yellow-400">{formik.errors.caption}</div>
+                <div className="text-red-400">{formik.errors.caption}</div>
               ) : null}
             </div>
             <div className="flex flex-col gap-2">
@@ -213,7 +213,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border  border-black rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.price && formik.errors.price ? (
-                <div className="text-yellow-400">{formik.errors.price}</div>
+                <div className="text-red-400">{formik.errors.price}</div>
               ) : null}
             </div>
             <div className="flex flex-col gap-2">
@@ -233,7 +233,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border border-black  rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.topic && formik.errors.topic ? (
-                <div className="text-yellow-400">{formik.errors.topic}</div>
+                <div className="text-red-400">{formik.errors.topic}</div>
               ) : null}
             </div>
             <div className="flex flex-col gap-2">
@@ -253,9 +253,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border border-black  rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.description && formik.errors.description ? (
-                <div className="text-yellow-400">
-                  {formik.errors.description}
-                </div>
+                <div className="text-red-400">{formik.errors.description}</div>
               ) : null}
             </div>
             <div className="flex flex-col gap-2">
@@ -278,7 +276,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border border-black  rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.pictures && formik.errors.pictures ? (
-                <div className="text-yellow-400">{formik.errors.pictures}</div>
+                <div className="text-red-400">{formik.errors.pictures}</div>
               ) : null}
             </div>
             <div className="flex flex-col gap-2">
@@ -298,7 +296,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border border-black  rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.brand && formik.errors.brand ? (
-                <div className="text-yellow-400">{formik.errors.brand}</div>
+                <div className="text-red-400">{formik.errors.brand}</div>
               ) : null}
             </div>
             <div className="flex flex-col gap-2">
@@ -318,7 +316,7 @@ const CreateProducts = () => {
                 className="h-[40px] outline-none border border-black  rounded-md p-1 text-white bg-[#1a1a1a]"
               />
               {formik.touched.stock && formik.errors.stock ? (
-                <div className="text-yellow-400">{formik.errors.stock}</div>
+                <div className="text-red-400">{formik.errors.stock}</div>
               ) : null}
             </div>
 
