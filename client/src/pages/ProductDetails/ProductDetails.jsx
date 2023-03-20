@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CounterInput from "react-counter-input";
+
 import {
+  addBasket,
+  calcMaxAmount,
   evaluationCalculate,
   getSingleProduct,
   getSingleUser,
 } from "../../helpers/Api";
 import { AiOutlinePlus, AiOutlineHeart } from "react-icons/ai";
 import ReactStars from "react-stars";
+import { useSelector } from "react-redux";
 const ProductDetails = () => {
   const params = useParams();
   const [product, setProduct] = useState({});
   const [productUser, setProductUser] = useState({});
   const [evaluation, setEvaluation] = useState();
   const [mainPic, setMainPic] = useState("");
+  const [maxAmount, setMaxAmount] = useState(1);
+  const [amount, setAmount] = useState(1);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   useEffect(() => {
     getSingleProduct(params.id).then((res) => {
       setProduct(res);
       getSingleUser(res.sellingBy._ref).then((res) => setProductUser(res));
       evaluationCalculate(params.id).then((res) => setEvaluation(res));
+      calcMaxAmount(user.userId, res._id, res.stock).then((res) => {
+        setMaxAmount(res);
+      });
     });
   }, [params.id]);
   return (
@@ -115,8 +127,29 @@ const ProductDetails = () => {
             <h1 className="text-3xl font-semibold text-orange-500">
               {product.price} $
             </h1>
+            <div>
+              {maxAmount === 0 ? (
+                <div className="border  text-xl  font-semibold text-mainRed w-fit p-2 rounded-md my-2 opacity-80">
+                  Out of <span className="text-red-500 ">stock</span>
+                </div>
+              ) : (
+                <CounterInput
+                  min={1}
+                  count={amount}
+                  max={parseInt(maxAmount)}
+                  onCountChange={(count) => setAmount(count)}
+                />
+              )}
+            </div>
             <div className="flex justify-between items-center">
-              <button className="w-5/6 bg-emerald-500 p-2 rounded-md text-white font-semibold flex justify-center items-center hover:scale-105 duration-500">
+              <button
+                className="w-5/6 bg-emerald-500 p-2 rounded-md text-white font-semibold flex justify-center items-center hover:scale-105 duration-500"
+                onClick={() =>
+                  addBasket(user.userId, product._id, amount).then(
+                    navigate("/")
+                  )
+                }
+              >
                 <AiOutlinePlus className="font-semibold" /> Add to Cart
               </button>
               <button className=" border p-2 rounded-md hover:bg-purple-400 duration-500  font-semibold flex justify-center items-center text-black  hover:text-white">
