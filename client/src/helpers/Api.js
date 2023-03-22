@@ -246,3 +246,59 @@ export const deleteProductFromBasket = async (userId, productId) => {
     console.log(error);
   }
 };
+
+//Buy Basket
+//Buy Basket
+export const buyBasket = async (userId) => {
+  try {
+    const userQuery = `*[_type == "user" && subId == "${userId}"][0]`;
+    const user = await client.fetch(userQuery);
+
+    for (let i = 0; i < user.basket.length; i++) {
+      const productQuery = `*[_type == "product" && _id == "${user.basket[i].product._id}"][0]`;
+      const product = await client.fetch(productQuery);
+      const newStock = product.stock - user.basket[i].amount;
+
+      await client
+        .patch(user.basket[i].product._id)
+        .set({
+          stock: newStock,
+        })
+        .commit();
+    }
+
+    for (let i = 0; i < user.basket.length; i++) {
+      const updatedUserQuery = `*[_type == "user" && subId == "${userId}"][0]`;
+      const updatedUser = await client.fetch(updatedUserQuery);
+      const basketItem = {
+        amount: updatedUser.basket[i].amount,
+        product: updatedUser.basket[i].product,
+        _key: updatedUser.basket[i]._key,
+        date: new Date(),
+      };
+
+      await client
+        .patch(userId)
+        .set({ buymentStory: [...updatedUser.buymentStory, basketItem] })
+        .commit();
+    }
+
+    await client.patch(userId).set({ basket: [] }).commit();
+  } catch (error) {
+    console.log(error);
+  }
+};
+//Leave a Comment
+export const leaveAComment = async (productId, comment) => {
+  try {
+    const productQuery = `*[_type == "product" && _id == "${productId}"][0]`;
+    const product = await client.fetch(productQuery);
+
+    await client
+      .patch(productId)
+      .set({ comments: [...product.comments, comment] })
+      .commit();
+  } catch (error) {
+    console.log(error);
+  }
+};

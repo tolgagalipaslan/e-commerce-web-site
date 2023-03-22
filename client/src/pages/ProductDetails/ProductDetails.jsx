@@ -183,7 +183,7 @@ const ProductDetails = () => {
               <AiOutlineHeart className="font-semibold  " />
               {product?.likes?.length === undefined
                 ? "(0)"
-                : "(" + product?.comments?.likes + ")"}{" "}
+                : "(" + product?.likes?.length + ")"}{" "}
               likes
             </div>
           </div>
@@ -227,8 +227,8 @@ const ProductDetails = () => {
                   </div>
                   <div>{comment.comment}</div>
                   <div className="flex opacity-75 text-gray-600 text-sm gap-2">
-                    <h1>{comment.userName}</h1>
-                    <h1>| 3/18/203</h1>
+                    <h1>{}</h1>
+                    <h1>| {}</h1>
                     <h1>
                       | Bought the product from{" "}
                       <span className="font-semibold text-red-500">

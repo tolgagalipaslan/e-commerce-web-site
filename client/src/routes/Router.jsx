@@ -6,6 +6,7 @@ import {
   CreateProducts,
   ProductDetails,
   Basket,
+  BuymentHistory,
 } from "../pages";
 
 const routes = [
@@ -16,6 +17,7 @@ const routes = [
   { path: "/createproducts", component: <CreateProducts /> },
   { path: "/productDetails/:id", component: <ProductDetails /> },
   { path: "/basket", component: <Basket /> },
+  { path: "/buymentHistory", component: <BuymentHistory /> },
 ];
 
 export default routes;

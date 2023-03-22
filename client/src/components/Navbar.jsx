@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCart4, BsFillTriangleFill, BsPerson } from "react-icons/bs";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn, BiPurchaseTag } from "react-icons/bi";
 import { FaClipboardList } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
 import { RxDotFilled } from "react-icons/rx";
@@ -174,21 +174,27 @@ const Navbar = () => {
                         {user.userName}
                       </h1>
                       <div
-                        className={` group-hover/user:flex  group-hover/user:opacity-100  duration-500 hidden absolute -bottom-[90px] right-0 z-30   bg-[#4df85bf5] flex flex-col  w-[140px]  opacity-0 rounded `}
+                        className={` group-hover/user:flex  group-hover/user:opacity-100  duration-500 hidden absolute top-full right-0 mt-2 z-30   bg-white shadow-md  flex-col  w-[200px]  opacity-0 rounded `}
                       >
                         {/* OPTIONS */}
-                        <div className=" flex absolute  bottom-full  w-full justify-end pr-3 text-[#4df85bf5] right-0 pt-5">
+                        <div className=" flex absolute  bottom-full  w-full justify-end pr-3 text-[#fff] shadow-md right-0 pt-5">
                           <BsFillTriangleFill />
                         </div>
                         <Link
                           to={`/profile`}
-                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#47af50f5] rounded-t "
+                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#bec2bef5] rounded-t "
                         >
                           <BsPerson className="text-lg" /> Your Account
                         </Link>
                         <Link
+                          to={`/buymentHistory`}
+                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#bec2bef5] rounded-t "
+                        >
+                          <BiPurchaseTag className="text-lg" /> Purchase History
+                        </Link>
+                        <Link
                           to={`/myproducts/${user.userId}`}
-                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#47af50f5] rounded-t  rounded"
+                          className=" p-2 items-center gap-2 text-black font-semibold   flex hover:bg-[#bec2bef5] rounded-t  rounded"
                         >
                           <FaClipboardList className="text-lg" /> My Products
                         </Link>

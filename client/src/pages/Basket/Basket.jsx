@@ -2,17 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ImBin, ImSpinner2 } from "react-icons/im";
 import { AiOutlineDoubleRight } from "react-icons/ai";
-import { deleteProductFromBasket, getSingleUser } from "../../helpers/Api";
-import { getUserBasket } from "../../store/basket";
+import {
+  buyBasket,
+  deleteProductFromBasket,
+  getSingleUser,
+} from "../../helpers/Api";
+import { getUserBasket, logOutBasket } from "../../store/basket";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Basket = () => {
   const basket = useSelector((state) => state.basket.basket);
   const user = useSelector((state) => state.auth.user);
-  const [userName, setUserName] = useState();
+
+  const [total, setTotal] = useState();
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    calcTotal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [basket]);
+  const calcTotal = () => {
+    let num = 0;
+
+    for (let i = 0; i < basket?.length; i++) {
+      num += basket[i].amount * basket[i].product.price;
+    }
+    setTotal(num);
+  };
   const succes = (message) => toast.success(message);
   return (
     <div>
@@ -65,7 +81,7 @@ const Basket = () => {
                     </span>
                   </p>
                   <h1 className="text-lg text-orange-500 font-semibold">
-                    {basket.product.price}$
+                    {basket.amount} X {parseInt(basket.product.price)}$
                   </h1>
                   <ImBin
                     className="cursor-pointer hover:scale-150  duration-500"
@@ -91,17 +107,25 @@ const Basket = () => {
                 <div className="flex flex-col gap-2 p-2 border rounded-md opacity-75">
                   <div className="text-2xl font-semibold">Order summary</div>
                   <div>
-                    <strong>Product total: </strong> <span></span>
+                    <strong>Product total: {total} $ </strong> <span></span>
                   </div>
                   <div className="border-b">
                     <strong>Cargo: </strong> Free
                   </div>
                   <div>
-                    <strong>Total: </strong> {/* TOTAL API */}
-                    <span className="text-green-400">5$</span>
+                    <strong>Total:</strong> {/* TOTAL API */}
+                    <span className="text-green-400">{total} $</span>
                   </div>
                 </div>
-                <button className="rounded-md text-white text-lg font-semibold bg-red-700 flex items-center justify-center gap-2 py-2">
+                <button
+                  className="rounded-md text-white text-lg font-semibold bg-red-700 flex items-center justify-center gap-2 py-2"
+                  onClick={async () => {
+                    setModal(true);
+                    await buyBasket(user.userId);
+                    await dispatch(logOutBasket());
+                    setModal(false);
+                  }}
+                >
                   Confirm cart <AiOutlineDoubleRight />
                 </button>
               </div>

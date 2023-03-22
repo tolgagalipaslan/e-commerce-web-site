@@ -50,6 +50,7 @@ export default {
           fields: [
             {type: 'reference', name: 'product', to: [{type: 'product'}]},
             {type: 'number', name: 'amount'},
+            {type: 'date', name: 'date'},
           ],
         },
       ],

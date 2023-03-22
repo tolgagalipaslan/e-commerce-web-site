@@ -5,3 +5,4 @@ export { default as MyProducts } from "./MyProducts/MyProducts";
 export { default as CreateProducts } from "./CreateProducts/CreateProducts";
 export { default as ProductDetails } from "./ProductDetails/ProductDetails";
 export { default as Basket } from "./Basket/Basket";
+export { default as BuymentHistory } from "./BuymentHistory/BuymentHistory";
