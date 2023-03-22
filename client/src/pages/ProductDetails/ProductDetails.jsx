@@ -13,7 +13,10 @@ import {
 } from "../../helpers/Api";
 import { AiOutlinePlus, AiOutlineHeart } from "react-icons/ai";
 import ReactStars from "react-stars";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { client } from "../../utils/client";
+import { getUserBasket } from "../../store/basket";
+import { ImSpinner2 } from "react-icons/im";
 const ProductDetails = () => {
   const params = useParams();
   const [product, setProduct] = useState({});
@@ -23,7 +26,10 @@ const ProductDetails = () => {
   const [mainPic, setMainPic] = useState("");
   const [maxAmount, setMaxAmount] = useState(1);
   const [amount, setAmount] = useState(1);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
   useEffect(() => {
     getSingleProduct(params.id).then((res) => {
@@ -33,6 +39,8 @@ const ProductDetails = () => {
       calcMaxAmount(user.userId, res._id, res.stock).then((res) => {
         setMaxAmount(res);
       });
+      const query = `*[_type == "user" && subId == "${user.userId}"][0]`;
+      client.fetch(query).then((res) => dispatch(getUserBasket(res.basket)));
     });
   }, [maxAmount, params.id, user.userId, updater]);
   return (
@@ -145,12 +153,27 @@ const ProductDetails = () => {
             <div className="flex justify-between items-center">
               <button
                 className="w-5/6 bg-emerald-500 p-2 rounded-md text-white font-semibold flex justify-center items-center hover:scale-105 duration-500"
+                disabled={loading || maxAmount === 0}
                 onClick={async () => {
+                  setLoading(true);
                   await addBasket(user.userId, product._id, amount);
+
                   setUpdater(updater + 1);
+                  setAmount(1);
+                  setLoading(false);
                 }}
               >
-                <AiOutlinePlus className="font-semibold" /> Add to Cart
+                {loading ? (
+                  <div className="flex items-center animate-spin font-semibold h-[30px]">
+                    <ImSpinner2 />
+                  </div>
+                ) : maxAmount === 0 ? (
+                  <div className="flex items-center h-[30px]">Out Of Stock</div>
+                ) : (
+                  <div className="flex items-center h-[30px]">
+                    <AiOutlinePlus className="font-semibold" /> Add to Cart
+                  </div>
+                )}
               </button>
               <button className=" border p-2 rounded-md hover:bg-purple-400 duration-500  font-semibold flex justify-center items-center text-black  hover:text-white">
                 <AiOutlineHeart className="font-semibold text-2xl " />

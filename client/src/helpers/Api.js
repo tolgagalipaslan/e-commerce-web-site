@@ -104,7 +104,10 @@ export const evaluationCalculate = async (productId) => {
   for (let i = 0; i < res.comments?.length; i++) {
     num += parseInt(res.comments[i].star);
   }
-  const calcEvaluation = num / res.comments.length;
+  let calcEvaluation = num / res.comments.length;
+  if (num === 0 && res.comments.length === 0) {
+    calcEvaluation = 0;
+  }
   return calcEvaluation;
 };
 //Get My Producst Rate
@@ -223,6 +226,22 @@ export const calcMaxAmount = async (userId, productId, maxAmount) => {
     } else {
       return maxAmount;
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+//Delete Product from basket
+export const deleteProductFromBasket = async (userId, productId) => {
+  try {
+    const userQuery = `*[_type == "user" && subId == "${userId}"][0]`;
+    const user = await client.fetch(userQuery);
+
+    const newBasket = await user.basket.filter(
+      (i) => i.product._id !== productId
+    );
+
+    const res = await client.patch(userId).set({ basket: newBasket }).commit();
+    return res.basket;
   } catch (error) {
     console.log(error);
   }

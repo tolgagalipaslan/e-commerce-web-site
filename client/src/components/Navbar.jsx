@@ -24,7 +24,7 @@ const Navbar = () => {
         navigate("/");
       }
     }
-  }, [location.pathname, navigate, user]);
+  }, [location.pathname, navigate, user, basket]);
   return (
     <div
       className={`${
@@ -106,9 +106,13 @@ const Navbar = () => {
                   My Cart({basket.length} product)
                 </h1>
                 <div className="w-full flex-col flex items-start max-h-[300px] overflow-y-auto basketScroll">
+                  {/* BASKET */}
                   {basket?.map((basket, i) => (
                     <div key={i} className="border-b   p-2 w-full  ">
-                      <Link to="/" className="flex items-center gap-2 p-1">
+                      <Link
+                        to={`/productDetails/${basket.product._id}`}
+                        className="flex items-center gap-2 p-1"
+                      >
                         <div className="h-24 w-24 rounded-md overflow-hidden  flex items-center ">
                           <img
                             src={`${basket.product.picture[0]}`}

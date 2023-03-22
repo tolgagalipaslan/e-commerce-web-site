@@ -5,7 +5,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { evaluationCalculate } from "../helpers/Api";
 import { Link } from "react-router-dom";
 const ProductCard = ({ product, color }) => {
-  const [evaluation, setEvaluation] = useState();
+  const [evaluation, setEvaluation] = useState(0);
   useEffect(() => {
     evaluationCalculate(product._id).then((res) => setEvaluation(res));
   }, [product._id]);
