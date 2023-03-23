@@ -141,7 +141,7 @@ export const evaluationAllCalculate = async (productId) => {
 
 export const getMyProductsSortedByPriceLowest = async (userId) => {
   try {
-    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(price asc)`;
+    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(price desc)`;
     const res = await client.fetch(query);
     return res;
   } catch (error) {
@@ -153,7 +153,7 @@ export const getMyProductsSortedByPriceLowest = async (userId) => {
 
 export const getMyProductsSortedByHighest = async (userId) => {
   try {
-    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(price desc)`;
+    const query = `*[_type == "product" && sellingBy._ref == "${userId}"]| order(price asc)`;
     const res = await client.fetch(query);
     return res;
   } catch (error) {

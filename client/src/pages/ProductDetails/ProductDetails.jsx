@@ -43,6 +43,7 @@ const ProductDetails = () => {
       client.fetch(query).then((res) => dispatch(getUserBasket(res.basket)));
     });
   }, [maxAmount, params.id, user.userId, updater]);
+  const success = (message) => toast.success(message);
   return (
     <div className=" w-full h-screen pt-5">
       <ToastContainer
@@ -120,7 +121,7 @@ const ProductDetails = () => {
             <div className="flex items-center">
               <ReactStars
                 count={5}
-                value={evaluation}
+                value={parseInt(evaluation)}
                 size={24}
                 edit={false}
                 color2={"#ffd700"}
@@ -161,6 +162,7 @@ const ProductDetails = () => {
                   setUpdater(updater + 1);
                   setAmount(1);
                   setLoading(false);
+                  success("Product added the basket!");
                 }}
               >
                 {loading ? (
@@ -217,7 +219,7 @@ const ProductDetails = () => {
                   <div className="flex  items-center gap-3  ">
                     <ReactStars
                       count={5}
-                      value={comment.star}
+                      value={parseInt(comment.star)}
                       size={24}
                       edit={false}
                       color2={"#ffd700"}
@@ -228,7 +230,7 @@ const ProductDetails = () => {
                   <div>{comment.comment}</div>
                   <div className="flex opacity-75 text-gray-600 text-sm gap-2">
                     <h1>{comment.userName}</h1>
-                    <h1>| {}</h1>
+                    <h1>| {comment.date.slice(0, 10)}</h1>
                     <h1>
                       | Bought the product from{" "}
                       <span className="font-semibold text-red-500">

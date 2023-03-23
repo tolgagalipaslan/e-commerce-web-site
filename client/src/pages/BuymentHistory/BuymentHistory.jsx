@@ -40,7 +40,7 @@ const BuymentHistory = () => {
         </div>
       ) : (
         <div className="w-[1380px] flex  gap-5 mx-auto p-2 relative">
-          <div className=" w-5/6 flex flex-col gap-5 mx-auto p-2">
+          <div className=" w-5/6 flex flex-col-reverse gap-5 mx-auto p-2">
             {userData?.buymentStory?.map((basket, i) => (
               <ProductCard key={i} basket={basket} />
             ))}

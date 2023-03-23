@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ImBin, ImSpinner2 } from "react-icons/im";
+import { ImBin } from "react-icons/im";
 import { AiOutlineDoubleRight } from "react-icons/ai";
-import {
-  buyBasket,
-  deleteProductFromBasket,
-  getSingleUser,
-} from "../../helpers/Api";
+import { buyBasket, deleteProductFromBasket } from "../../helpers/Api";
 import { getUserBasket, logOutBasket } from "../../store/basket";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingModal from "../../components/LoadingModal";
 const Basket = () => {
   const basket = useSelector((state) => state.basket.basket);
   const user = useSelector((state) => state.auth.user);
@@ -133,16 +130,7 @@ const Basket = () => {
           </div>
         </div>
       )}
-      {modal ? (
-        <div className="w-full h-full backdrop-blur-md  absolute top-0 left-0 flex items-center justify-center">
-          <div className="w-[400px] h-28  bg-white rounded-md flex  flex-col justify-center items-center  shadow-lg">
-            <ImSpinner2 className="animate-spin text-orange-600 text-3xl" />
-            <h1 className="font-semibold border-b">
-              Please wait, the process continues
-            </h1>
-          </div>
-        </div>
-      ) : null}
+      {modal ? <LoadingModal /> : null}
     </div>
   );
 };

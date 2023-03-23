@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getSingleProduct, leaveAComment } from "../../../helpers/Api";
 import ReactStars from "react-stars";
 import { uid } from "uid";
+import LoadingModal from "../../../components/LoadingModal";
 
 const ProductCard = ({ basket }) => {
   const [modal, setModal] = useState(false);
@@ -38,6 +39,7 @@ const ProductCard = ({ basket }) => {
       comment: description,
       star: startChanged,
       userId: user.userId,
+      date: new Date(),
     };
     setModal(false);
     leaveAComment(temp, comment).then(() => {
@@ -68,7 +70,9 @@ const ProductCard = ({ basket }) => {
           <div className="flex w-32">
             <ReactStars
               count={5}
-              value={hasComment?.find((i) => i.commentKey === basket._key).star}
+              value={parseInt(
+                hasComment?.find((i) => i.commentKey === basket._key).star
+              )}
               edit={false}
               size={24}
               color2={"#ffd700"}
@@ -177,16 +181,7 @@ const ProductCard = ({ basket }) => {
         </div>
       ) : null}
 
-      {loading ? (
-        <div className="w-screen h-screen backdrop-blur-md  fixed z-[999] top-0 left-0 flex items-center justify-center">
-          <div className="w-[400px] h-28  bg-white rounded-md flex  flex-col justify-center items-center  shadow-lg">
-            <ImSpinner2 className="animate-spin text-orange-600 text-3xl" />
-            <h1 className="font-semibold border-b">
-              Please wait, the process continues
-            </h1>
-          </div>
-        </div>
-      ) : null}
+      {loading ? <LoadingModal /> : null}
     </div>
   );
 };

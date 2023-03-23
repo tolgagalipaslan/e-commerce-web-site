@@ -33,7 +33,7 @@ const MyProductCard = ({ product }) => {
           <div className="flex items-center gap-1">
             <ReactStars
               count={5}
-              value={evaluation}
+              value={parseInt(evaluation)}
               size={24}
               edit={false}
               color2={"#ffd700"}

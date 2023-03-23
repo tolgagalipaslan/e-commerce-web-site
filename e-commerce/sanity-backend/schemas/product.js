@@ -42,7 +42,7 @@ export default {
     {
       name: 'stock',
       title: 'Stock',
-      type: 'string',
+      type: 'number',
     },
     {
       name: 'sellingBy',
