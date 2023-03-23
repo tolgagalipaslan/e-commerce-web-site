@@ -108,7 +108,7 @@ export const evaluationCalculate = async (productId) => {
   if (num === 0 && res.comments.length === 0) {
     calcEvaluation = 0;
   }
-  return calcEvaluation;
+  return calcEvaluation.toFixed(2);
 };
 //Get My Producst Rate
 export const evaluationAllCalculate = async (productId) => {

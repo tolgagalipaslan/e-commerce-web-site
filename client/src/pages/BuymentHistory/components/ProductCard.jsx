@@ -8,7 +8,9 @@ import { uid } from "uid";
 
 const ProductCard = ({ basket }) => {
   const [modal, setModal] = useState(false);
+  const [privateName, setPrivateName] = useState(false);
   const [temp, setTemp] = useState("");
+  const [nameTemp, setNameTemp] = useState("");
   const [caption, setCaption] = useState("");
   const [description, setDescription] = useState("");
   const [buymentKey, setBuymentKey] = useState("");
@@ -31,7 +33,7 @@ const ProductCard = ({ basket }) => {
     const comment = {
       _key: uid(),
       commentKey: buymentKey,
-      userName: user.userName,
+      userName: nameTemp,
       caption,
       comment: description,
       star: startChanged,
@@ -47,7 +49,11 @@ const ProductCard = ({ basket }) => {
       setRenderCard(renderCard + 1);
     });
   };
-
+  const privateNameHandler = (e) => {
+    if (privateName) {
+    } else {
+    }
+  };
   return (
     <div className="rounded-md border shadow-md  hover:shadow-emerald-500 duration-500 ">
       <div className="w-full flex justify-between bg-gray-200 rounded-t-md">
@@ -109,12 +115,19 @@ const ProductCard = ({ basket }) => {
               onSubmit={handleSubmit}
               className="flex flex-col gap-5 w-full h-full"
             >
-              <div className="flex flex-col gap-1">
+              <div
+                className="flex flex-col gap-1"
+                onClick={(e) =>
+                  privateName
+                    ? (setPrivateName(false), setNameTemp(user.userName))
+                    : (setPrivateName(true), setNameTemp("*** ****"))
+                }
+              >
                 <label className="font-semibold">Name:</label>
                 <input
                   type="text"
-                  className="p-2 rounded-md w-full border"
-                  value={user.userName}
+                  className="p-2 rounded-md w-full border text-gray-600 font-semibold"
+                  value={nameTemp}
                   disabled
                   placeholder={user.userName}
                 />

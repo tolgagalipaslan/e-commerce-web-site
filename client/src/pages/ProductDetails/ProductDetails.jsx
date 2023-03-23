@@ -227,7 +227,7 @@ const ProductDetails = () => {
                   </div>
                   <div>{comment.comment}</div>
                   <div className="flex opacity-75 text-gray-600 text-sm gap-2">
-                    <h1>{}</h1>
+                    <h1>{comment.userName}</h1>
                     <h1>| {}</h1>
                     <h1>
                       | Bought the product from{" "}
