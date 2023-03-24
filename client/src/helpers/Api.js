@@ -302,3 +302,14 @@ export const leaveAComment = async (productId, comment) => {
     console.log(error);
   }
 };
+//Search
+export const searchProduct = async (searchQuery, sortQuery) => {
+  try {
+    const productQuery = `*[_type == "product" && [topic,caption,brand] match "*${searchQuery}*"]| order(${sortQuery})`;
+    const product = await client.fetch(productQuery);
+
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsCart4, BsFillTriangleFill, BsPerson } from "react-icons/bs";
 import { BiLogIn, BiPurchaseTag } from "react-icons/bi";
@@ -12,6 +12,7 @@ const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchQue, setSearchQue] = useState();
   const user = useSelector((state) => state.auth.user);
   const basket = useSelector((state) => state.basket.basket);
   const unValidPaths = ["/register", "/login"];
@@ -25,6 +26,12 @@ const Navbar = () => {
       }
     }
   }, [location.pathname, navigate, user, basket]);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQue.trimStart() !== "") {
+      navigate(`/search/${searchQue.trimStart()}`);
+    }
+  };
   return (
     <div
       className={`${
@@ -48,15 +55,24 @@ const Navbar = () => {
                 Plago
               </h1>
             </Link>
-            <form className="bg-[#f9e400] items-center overflow-hidden flex rounded-r-full w-full  text-black">
+            <form
+              className="bg-[#f9e400] items-center overflow-hidden flex rounded-r-full w-full  text-black"
+              onSubmit={handleSearch}
+            >
               <img src="" alt="" />
               <input
                 type="text"
                 className="bg-transparent outline-none py-2 px-4  w-full h-[48px] font-semibold"
                 placeholder="Search "
+                onChange={(e) => {
+                  setSearchQue(e.target.value);
+                }}
               />
               <div className="  py-2 ">
-                <button className="  bg-transparent  outline-none   border-l-2  border-black px-4 text-2xl">
+                <button
+                  type="submit"
+                  className="  bg-transparent  outline-none   border-l-2  border-black px-4 text-2xl"
+                >
                   <AiOutlineSearch />
                 </button>
               </div>

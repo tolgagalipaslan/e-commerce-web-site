@@ -7,3 +7,4 @@ export { default as ProductDetails } from "./ProductDetails/ProductDetails";
 export { default as Basket } from "./Basket/Basket";
 export { default as BuymentHistory } from "./BuymentHistory/BuymentHistory";
 export { default as Edit } from "./Edit/Edit";
+export { default as Search } from "./Search/Search";

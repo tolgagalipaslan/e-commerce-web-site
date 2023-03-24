@@ -8,6 +8,7 @@ import {
   Basket,
   BuymentHistory,
   Edit,
+  Search,
 } from "../pages";
 
 const routes = [
@@ -20,6 +21,7 @@ const routes = [
   { path: "/basket", component: <Basket /> },
   { path: "/buymentHistory", component: <BuymentHistory /> },
   { path: "/edit/:id", component: <Edit /> },
+  { path: "/search/:searchQuery", component: <Search /> },
 ];
 
 export default routes;

@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { client } from "../../../utils/client";
 import { RxCross2 } from "react-icons/rx";
 import { ImSpinner2 } from "react-icons/im";
-import { uid } from "uid";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,11 +37,11 @@ const EditForm = ({ data }) => {
             setLooding(false);
           });
       } else {
-        falseFileType("Thats a lot of picture !!");
+        errorForm("Thats a lot of picture !!");
         setLooding(false);
       }
     } else {
-      falseFileType("Wrong type");
+      errorForm("Wrong type");
       setLooding(false);
     }
   };
