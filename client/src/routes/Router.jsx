@@ -7,6 +7,7 @@ import {
   ProductDetails,
   Basket,
   BuymentHistory,
+  Edit,
 } from "../pages";
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
   { path: "/productDetails/:id", component: <ProductDetails /> },
   { path: "/basket", component: <Basket /> },
   { path: "/buymentHistory", component: <BuymentHistory /> },
+  { path: "/edit/:id", component: <Edit /> },
 ];
 
 export default routes;
