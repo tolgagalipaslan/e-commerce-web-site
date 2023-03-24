@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { GoogleLogin } from "@react-oauth/google";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { googleAuth, register } from "../../../store/auth";
 import { client } from "../../../utils/client";
+import LoadingModal from "../../../components/LoadingModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SignUpForm = () => {
   const dispatch = useDispatch();
-
+  const [loading, setloading] = useState(false);
+  const user = useSelector((state) => state.auth.user);
   // FORMIK
 
   const formik = useFormik({
@@ -31,20 +35,38 @@ const SignUpForm = () => {
     }),
     onSubmit: async (values) => {
       const query = `*[_type == "user" && email == "${values.email}"][0]`;
+      setloading(true);
       const res = await client.fetch(query);
       dispatch(
         register({
-          name: values.name,
+          name: values.userName,
           email: values.email,
           password: values.password,
           res,
         })
       );
+      if (!user.userName) {
+        error("Email already exist !");
+      }
+      setloading(false);
     },
   });
+  const error = (message) => toast.error(message);
 
   return (
     <div className="w-full  h-screen flex  flex-col justify-center items-center bg-[#1a1a1a]">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <img src="./assets/logo.png" alt="" className="h-16 rounded-lg" />
       <form
         className="flex flex-col border w-3/12  rounded-md p-4 shadow-md bg-[#2e2d2d] text-white"
@@ -123,6 +145,7 @@ const SignUpForm = () => {
           Submit
         </button>
       </form>
+      {loading ? <LoadingModal /> : null}
     </div>
   );
 };

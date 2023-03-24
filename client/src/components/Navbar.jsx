@@ -12,7 +12,7 @@ const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [searchQue, setSearchQue] = useState();
+  const [searchQue, setSearchQue] = useState("");
   const user = useSelector((state) => state.auth.user);
   const basket = useSelector((state) => state.basket.basket);
   const unValidPaths = ["/register", "/login"];
@@ -30,6 +30,7 @@ const Navbar = () => {
     e.preventDefault();
     if (searchQue.trimStart() !== "") {
       navigate(`/search/${searchQue.trimStart()}`);
+      setSearchQue("");
     }
   };
   return (
@@ -64,6 +65,7 @@ const Navbar = () => {
                 type="text"
                 className="bg-transparent outline-none py-2 px-4  w-full h-[48px] font-semibold"
                 placeholder="Search "
+                value={searchQue}
                 onChange={(e) => {
                   setSearchQue(e.target.value);
                 }}
