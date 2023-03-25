@@ -154,7 +154,7 @@ const ProductDetails = () => {
             <div className="flex justify-between items-center">
               <button
                 className="w-5/6 bg-emerald-500 p-2 rounded-md text-white font-semibold flex justify-center items-center hover:scale-105 duration-500"
-                disabled={loading || maxAmount === 0}
+                disabled={loading || maxAmount === 0 || !user.userName}
                 onClick={async () => {
                   setLoading(true);
                   await addBasket(user.userId, product._id, amount);
